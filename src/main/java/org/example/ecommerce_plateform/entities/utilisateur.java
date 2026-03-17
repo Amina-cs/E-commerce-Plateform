@@ -1,6 +1,7 @@
 package org.example.ecommerce_plateform.entities;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,9 +22,13 @@ public abstract class utilisateur {
             }
     )
     private int idUtilisateur;
+    @Column(nullable = false)
     private String nom;
+    @Column(nullable = false)
     private String prenom;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String pwd;
     private long num;
 

@@ -1,8 +1,7 @@
 package org.example.ecommerce_plateform.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,8 +22,10 @@ public class commande {
     )
     private int idCommande;
 
+    @CreationTimestamp
     private Date date;
 
+    @Enumerated(EnumType.STRING)
     private statusCommande status;
 
     private double prixTotal;

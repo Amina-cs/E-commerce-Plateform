@@ -1,5 +1,6 @@
 package org.example.ecommerce_plateform.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,8 +22,10 @@ public class produit {
             }
     )
     private int idProduit;
+    @Column(nullable = false)
     private String nomProduit;
     private String descriptionProduit;
+    @Column(nullable = false)
     private double prixProduit;
     private int stock;
     private String imageProduit;
