@@ -1,13 +1,23 @@
 package org.example.ecommerce_plateform.entities;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class client extends utilisateur {
 
     @Embedded
     private adresse adresse;
+
+    @ManyToMany
+    @JoinTable(
+            name = "produitsFavoris",
+            joinColumns = @JoinColumn(name = "idUtilisateur"),
+            inverseJoinColumns = @JoinColumn(name = "idProduit")
+    )
+    private Set<produit> produitsFavoris = new HashSet<produit>();
 
     public client(){}
 

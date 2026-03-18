@@ -1,31 +1,20 @@
 package org.example.ecommerce_plateform.entities;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import java.util.List;
+import java.util.Map;
 
-@Entity
 public class panier {
-    @Id
-    @GeneratedValue
-    private int idPanier;
 
-    @OneToOne
     private client client;
+    private Map<produit,Integer> listeProduits;
 
-    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL)
-    private List<lignePanier> lignes;
-
-    public int getIdPanier() {
-        return idPanier;
-    }
-
-    public void setIdPanier(int idPanier) {
-        this.idPanier = idPanier;
-    }
+    public panier() {}
 
     public client getClient() {
         return client;
@@ -35,11 +24,26 @@ public class panier {
         this.client = client;
     }
 
-    public List<lignePanier> getLignes() {
-        return lignes;
+    public Map<produit, Integer> getListeProduits() {
+        return listeProduits;
     }
 
-    public void setLignes(List<lignePanier> lignes) {
-        this.lignes = lignes;
+    public void setListeProduits(Map<produit,Integer> listeProduits) {
+        this.listeProduits = listeProduits;
+    }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof panier)) return false;
+        panier other = (panier) o;
+        return  client==(other.getClient());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

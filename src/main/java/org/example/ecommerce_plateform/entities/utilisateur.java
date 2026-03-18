@@ -84,6 +84,18 @@ public abstract class utilisateur {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof utilisateur)) return false;
+        utilisateur other = (utilisateur) o;
+        return  idUtilisateur==(other.getIdUtilisateur());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 
 }

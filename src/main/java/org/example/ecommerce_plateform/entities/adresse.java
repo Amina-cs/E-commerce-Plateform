@@ -43,4 +43,5 @@ public class adresse {
     public void setRue(String rue) {
         this.rue = rue;
     }
+
 }

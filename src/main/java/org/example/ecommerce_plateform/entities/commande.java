@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class commande {
@@ -38,10 +37,8 @@ public class commande {
     private String serviceLivraison;
 
     @ManyToOne
-    private client client;
-
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    private List<ligneCommande> lignes;
+    @JoinColumn(name = "idUtilisateur")
+    client client ;
 
     public commande() {}
 
@@ -101,19 +98,16 @@ public class commande {
         this.serviceLivraison = serviceLivraison;
     }
 
-    public client getClient() {
-        return client;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof commande)) return false;
+        commande other = (commande) o;
+        return  idCommande==(other.getIdCommande());
     }
 
-    public void setClient(client client) {
-        this.client = client;
-    }
-
-    public List<ligneCommande> getLignes() {
-        return lignes;
-    }
-
-    public void setLignes(List<ligneCommande> lignes) {
-        this.lignes = lignes;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

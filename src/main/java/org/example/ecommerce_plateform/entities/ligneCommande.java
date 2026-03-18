@@ -6,38 +6,31 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
+@IdClass(idLigneCommande.class)
 public class ligneCommande {
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(
-            name = "sequence-generator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "user_id_sequence"),
-                    @Parameter(name = "initial_value", value = "1"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
-    private int idLigneCommande;
-
     @ManyToOne
-    private produit produit;
-
-    @ManyToOne
+    @JoinColumn(name = "idCommande")
     private commande commande;
 
-    private double prixPartiel;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "idProduit")
+    private produit produit;
+
+
+    private double prixProduit;
 
     private int quantite;
 
     public ligneCommande() {}
 
-    public int getIdLigneCommande() {
-        return idLigneCommande;
+    public commande getCommande() {
+        return commande;
     }
 
-    public void setIdLigneCommande(int idLigneCommande) {
-        this.idLigneCommande = idLigneCommande;
+    public void setCommande(commande commande) {
+        this.commande = commande;
     }
 
     public produit getProduit() {
@@ -48,12 +41,12 @@ public class ligneCommande {
         this.produit = produit;
     }
 
-    public double getPrixPartiel() {
-        return prixPartiel;
+    public double getPrixProduit() {
+        return prixProduit;
     }
 
-    public void setPrixPartiel(double prixPartiel) {
-        this.prixPartiel = prixPartiel;
+    public void setPrixProduit(double prixPartiel) {
+        this.prixProduit = prixPartiel;
     }
 
     public int getQuantite() {
@@ -64,11 +57,19 @@ public class ligneCommande {
         this.quantite = quantite;
     }
 
-    public commande getCommande() {
-        return commande;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ligneCommande)) return false;
+        ligneCommande other = (ligneCommande) o;
+        return  commande==(other.getCommande() )&& produit==(other.getProduit());
     }
 
-    public void setCommande(commande commande) {
-        this.commande = commande;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
+
+
+
 }
