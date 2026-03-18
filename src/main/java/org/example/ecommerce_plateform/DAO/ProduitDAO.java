@@ -59,7 +59,7 @@ public class ProduitDAO {
     public List<produit> findByCategorie(int idCategorie) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
-                            "from produit p where p.categorie.idCategorie = :id",
+                            "select p from produit p join p.categories c where c.idCategorie = :id",
                             produit.class)
                     .setParameter("id", idCategorie)
                     .list();

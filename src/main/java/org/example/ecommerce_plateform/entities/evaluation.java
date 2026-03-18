@@ -38,10 +38,6 @@ public class evaluation {
     @JoinColumn(name="idUtilisateur")
     private utilisateur utilisateur;
 
-    @ManyToOne
-    @JoinColumn(name = "idProduit")
-    private produit produit;
-
     public evaluation() {}
 
     public int getIdEvaluation() {

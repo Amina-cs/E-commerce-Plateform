@@ -2,9 +2,6 @@ package org.example.ecommerce_plateform.service;
 
 import org.example.ecommerce_plateform.DAO.*;
 import org.example.ecommerce_plateform.entities.*;
-import org.example.ecommerce_plateform.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,87 +12,57 @@ public class CommandeService {
 
     private CommandeDAO commandeDAO = new CommandeDAO();
     private ProduitDAO produitDAO = new ProduitDAO();
+    private LigneCommandeDAO ligneCommandeDAO = new LigneCommandeDAO();
 
-    public commande passerCommande(client client) {
+    public commande passerCommande(client client, Map<produit, Integer> panier) {
 
-        Transaction tx = null;
+        // Créer la commande
+        commande commande = new commande();
+        commande.setClient(client);
+        commande.setDate(new Date());
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        List<ligneCommande> lignes = new ArrayList<>();
+        double total = 0;
 
-            tx = session.beginTransaction();
+        // Sauvegarder la commande d’abord pour avoir son id
+        commandeDAO.save(commande);
 
-            // 🔹 récupérer panier
-            panier panier = session.createQuery(
-                            "from panier p where p.client.idUtilisateur = :id",
-                            panier.class)
-                    .setParameter("id", client.getIdUtilisateur())
-                    .uniqueResult();
+        // Créer et sauvegarder chaque ligne de commande
+        for (Map.Entry<produit, Integer> entry : panier.entrySet()) {
+            produit produit = entry.getKey();
+            int quantite = entry.getValue();
 
-            if (panier == null || panier.getLignes().isEmpty()) {
-                throw new RuntimeException("Panier vide");
+            // vérifier stock
+            if (produit.getStock() < quantite) {
+                throw new RuntimeException("Stock insuffisant pour " + produit.getNomProduit());
             }
 
-            // 🔹 créer commande
-            commande commande = new commande();
-            commande.setClient(client);
-            commande.setDate(new Date());
+            // créer ligne commande
+            ligneCommande ligne = new ligneCommande();
+            ligne.setProduit(produit);
+            ligne.setQuantite(quantite);
+            ligne.setPrixProduit(produit.getPrixProduit());
+            ligne.setCommande(commande);
 
-            List<ligneCommande> lignesCommande = new ArrayList<>();
-            double total = 0;
+            // Sauvegarde via DAO
+            ligneCommandeDAO.save(ligne);
 
-            // 🔥 parcourir panier
-            for (lignePanier lp : panier.getLignes()) {
+            // calcul total
+            total += produit.getPrixProduit() * quantite;
 
-                produit produit = session.get(produit.class, lp.getProduit().getIdProduit());
-
-                int quantite = lp.getQuantite();
-
-                // 🔥 vérification stock
-                if (produit.getStock() < quantite) {
-                    throw new RuntimeException(
-                            "Stock insuffisant pour : " + produit.getNomProduit()
-                    );
-                }
-
-                // 🔹 créer ligne commande
-                ligneCommande lc = new ligneCommande();
-                lc.setProduit(produit);
-                lc.setQuantite(quantite);
-                lc.setPrixPartiel(produit.getPrixProduit());
-                lc.setCommande(commande);
-
-                lignesCommande.add(lc);
-
-                // 🔹 calcul total
-                total += produit.getPrixProduit() * quantite;
-
-                // 🔥 mise à jour stock
-                produit.setStock(produit.getStock() - quantite);
-                session.merge(produit);
-            }
-
-            // 🔹 finaliser commande
-            commande.setLignes(lignesCommande);
-            commande.setPrixTotal(total);
-            commande.setStatus(statusCommande.confirme);
-
-            session.persist(commande);
-
-            // 🔥 vider panier
-            panier.getLignes().clear();
-            session.merge(panier);
-
-            // 🔥 commit global
-            tx.commit();
-
-            return commande;
-
-        } catch (Exception e) {
-
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-            throw new RuntimeException("Erreur lors de la commande");
-
+            // mise à jour stock
+            produit.setStock(produit.getStock() - quantite);
+            produitDAO.update(produit);
         }
+
+        // Mettre à jour le prix total de la commande
+        commande.setLignes(lignes);
+        commande.setPrixTotal(total);
+        commande.setStatus(statusCommande.confirme);
+
+        // sauvegarde
+        commandeDAO.save(commande);
+
+        return commande;
     }
 }

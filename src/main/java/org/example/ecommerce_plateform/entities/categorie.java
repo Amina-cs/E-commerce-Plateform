@@ -51,6 +51,13 @@ public class categorie {
         this.nomCategorie = nomCategorie;
     }
 
+    public Set<produit> getListe_produits() {
+        return liste_produits;
+    }
+
+    public void setListe_produits(Set<produit> liste_produits) {
+        this.liste_produits = liste_produits;
+    }
 
     @Override
     public boolean equals(Object o) {

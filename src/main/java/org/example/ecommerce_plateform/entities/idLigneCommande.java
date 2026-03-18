@@ -9,6 +9,11 @@ public class idLigneCommande implements Serializable {
 
     public idLigneCommande(){}
 
+    public idLigneCommande(int idCommande, int idProduit) {
+        this.idCommande = idCommande;
+        this.idProduit = idProduit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

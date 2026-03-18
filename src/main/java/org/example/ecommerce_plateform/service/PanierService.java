@@ -1,65 +1,40 @@
 package org.example.ecommerce_plateform.service;
 
-import org.example.ecommerce_plateform.DAO.PanierDAO;
-import org.example.ecommerce_plateform.entities.client;
-import org.example.ecommerce_plateform.entities.lignePanier;
-import org.example.ecommerce_plateform.entities.panier;
 import org.example.ecommerce_plateform.entities.produit;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PanierService {
-    private PanierDAO panierDAO = new PanierDAO();
 
-    public void ajouterProduit(client client, produit produit, int quantite) {
+    private Map<produit, Integer> panier = new HashMap<>();
 
-        panier panier = panierDAO.findByClient(client.getIdUtilisateur());
-
-        if (panier == null) {
-            panier = new panier();
-            panier.setClient(client);
-            panier.setLignes(new ArrayList<>());
-        }
-
-        // vérifier si produit déjà dans panier
-        for (lignePanier ligne : panier.getLignes()) {
-            if (ligne.getProduit().getIdProduit() == produit.getIdProduit()) {
-                ligne.setQuantite(ligne.getQuantite() + quantite);
-                panierDAO.update(panier);
-                return;
-            }
-        }
-
-        // sinon ajouter nouvelle ligne
-        lignePanier ligne = new lignePanier();
-        ligne.setProduit(produit);
-        ligne.setQuantite(quantite);
-        ligne.setPanier(panier);
-
-        panier.getLignes().add(ligne);
-
-        panierDAO.save(panier);
+    // ajouter produit
+    public void ajouterProduit(produit p, int quantite) {
+        panier.put(p, panier.getOrDefault(p, 0) + quantite);
     }
 
-    public void supprimerProduit(client client, int produitId) {
-        panier panier = panierDAO.findByClient(client.getIdUtilisateur());
-
-        panier.getLignes().removeIf(l ->
-                l.getProduit().getIdProduit() == produitId
-        );
-
-        panierDAO.update(panier);
+    // supprimer produit
+    public void supprimerProduit(produit p) {
+        panier.remove(p);
     }
 
-    public void modifierQuantite(client client, int produitId, int qte) {
-        panier panier = panierDAO.findByClient(client.getIdUtilisateur());
-
-        for (lignePanier l : panier.getLignes()) {
-            if (l.getProduit().getIdProduit() == produitId) {
-                l.setQuantite(qte);
-            }
+    // modifier quantité
+    public void modifierQuantite(produit p, int quantite) {
+        if (panier.containsKey(p)) {
+            panier.put(p, quantite);
         }
+    }
 
-        panierDAO.update(panier);
+    // calcul total
+    public double getTotal() {
+        return panier.entrySet()
+                .stream()
+                .mapToDouble(e -> e.getKey().getPrixProduit() * e.getValue())
+                .sum();
+    }
+
+    public Map<produit, Integer> getPanier() {
+        return panier;
     }
 }

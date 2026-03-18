@@ -34,6 +34,9 @@ public class produit {
     private double largeur;
     private double longueur;
 
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<evaluation> evaluations = new HashSet<>();
+
     @ManyToMany(mappedBy = "liste_produits")
     private Set<categorie> categories = new HashSet<>();
 
@@ -120,7 +123,21 @@ public class produit {
         this.largeur = largeur;
     }
 
+    public Set<evaluation> getEvaluations() {
+        return evaluations;
+    }
 
+    public void setEvaluations(Set<evaluation> evaluations) {
+        this.evaluations = evaluations;
+    }
+
+    public Set<categorie> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<categorie> categories) {
+        this.categories = categories;
+    }
 
     @Override
     public boolean equals(Object o) {

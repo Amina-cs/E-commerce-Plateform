@@ -1,9 +1,7 @@
 package org.example.ecommerce_plateform.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -22,6 +20,14 @@ public class favoris {
     )
     private int idFavoris;
 
+    @ManyToOne
+    @JoinColumn(name = "idUtilisateur")
+    private utilisateur utilisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "idProduit")
+    private produit produit;
+
     public favoris(){}
 
     public int getIdFavoris() {
@@ -30,6 +36,10 @@ public class favoris {
     public void setIdFavoris(int idFavoris) {
         this.idFavoris = idFavoris;
     }
+    public utilisateur getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(utilisateur utilisateur) { this.utilisateur = utilisateur;}
+    public produit getProduit() { return produit; }
+    public void setProduit(produit produit) { this.produit = produit; }
 
     @Override
     public boolean equals(Object o) {
