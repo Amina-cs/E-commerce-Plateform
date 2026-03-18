@@ -64,7 +64,11 @@ public class ligneCommande {
         this.quantite = quantite;
     }
 
+    public commande getCommande() {
+        return commande;
+    }
 
-
-
+    public void setCommande(commande commande) {
+        this.commande = commande;
+    }
 }

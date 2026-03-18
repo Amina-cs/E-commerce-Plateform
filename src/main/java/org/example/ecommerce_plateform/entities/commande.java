@@ -100,4 +100,20 @@ public class commande {
     public void setServiceLivraison(String serviceLivraison) {
         this.serviceLivraison = serviceLivraison;
     }
+
+    public client getClient() {
+        return client;
+    }
+
+    public void setClient(client client) {
+        this.client = client;
+    }
+
+    public List<ligneCommande> getLignes() {
+        return lignes;
+    }
+
+    public void setLignes(List<ligneCommande> lignes) {
+        this.lignes = lignes;
+    }
 }
