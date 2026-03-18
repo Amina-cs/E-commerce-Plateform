@@ -1,11 +1,11 @@
 package org.example.ecommerce_plateform.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class produit {
@@ -33,6 +33,10 @@ public class produit {
     private double hauteur;
     private double largeur;
     private double longueur;
+
+    @ManyToMany(mappedBy = "liste_produits")
+    private Set<categorie> categories = new HashSet<>();
+
 
     public produit(){}
 
@@ -114,5 +118,20 @@ public class produit {
 
     public void setLargeur(double largeur) {
         this.largeur = largeur;
+    }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof produit)) return false;
+        produit other = (produit) o;
+        return  idProduit==(other.getIdProduit());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

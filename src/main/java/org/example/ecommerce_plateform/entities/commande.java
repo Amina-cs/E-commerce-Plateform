@@ -36,6 +36,10 @@ public class commande {
 
     private String serviceLivraison;
 
+    @ManyToOne
+    @JoinColumn(name = "idUtilisateur")
+    client client ;
+
     public commande() {}
 
     public double getPrixLivraison() {
@@ -92,5 +96,18 @@ public class commande {
 
     public void setServiceLivraison(String serviceLivraison) {
         this.serviceLivraison = serviceLivraison;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof commande)) return false;
+        commande other = (commande) o;
+        return  idCommande==(other.getIdCommande());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

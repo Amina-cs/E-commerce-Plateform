@@ -31,4 +31,17 @@ public class favoris {
         this.idFavoris = idFavoris;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof favoris)) return false;
+        favoris other = (favoris) o;
+        return  idFavoris==(other.getIdFavoris());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

@@ -1,14 +1,12 @@
 package org.example.ecommerce_plateform.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import javax.lang.model.element.ElementVisitor;
 import java.util.Date;
 
 @Entity
@@ -31,6 +29,14 @@ public class evaluation {
     @CreationTimestamp
     @Column(updatable = false)
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name="idUtilisateur")
+    private utilisateur utilisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "idProduit")
+    private produit produit;
 
     public evaluation() {}
 
@@ -64,5 +70,18 @@ public class evaluation {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof evaluation)) return false;
+        evaluation other = (evaluation) o;
+        return  idEvaluation==(other.getIdEvaluation());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

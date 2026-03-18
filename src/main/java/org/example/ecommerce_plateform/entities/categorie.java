@@ -1,11 +1,11 @@
 package org.example.ecommerce_plateform.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class categorie {
@@ -24,6 +24,15 @@ public class categorie {
     @Column(nullable = false, unique = true)
     private String nomCategorie;
 
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "idCategorie"),
+            inverseJoinColumns = @JoinColumn(name = "idProduit")
+    )
+    private Set<produit> liste_produits = new HashSet<>();
+
+
     public categorie(){}
 
     public int getIdCategorie() {
@@ -40,5 +49,19 @@ public class categorie {
 
     public void setNomCategorie(String nomCategorie) {
         this.nomCategorie = nomCategorie;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        categorie category = (categorie) o;
+        return  idCategorie==(category.idCategorie);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
