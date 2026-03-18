@@ -1,10 +1,7 @@
 package org.example.ecommerce_plateform.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,7 +20,11 @@ public class ligneCommande {
     )
     private int idLigneCommande;
 
-    private int produit;
+    @ManyToOne
+    private produit produit;
+
+    @ManyToOne
+    private commande commande;
 
     private double prixPartiel;
 
@@ -39,11 +40,11 @@ public class ligneCommande {
         this.idLigneCommande = idLigneCommande;
     }
 
-    public int getProduit() {
+    public produit getProduit() {
         return produit;
     }
 
-    public void setProduit(int produit) {
+    public void setProduit(produit produit) {
         this.produit = produit;
     }
 

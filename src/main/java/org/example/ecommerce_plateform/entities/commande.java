@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class commande {
@@ -35,6 +36,12 @@ public class commande {
     private double prixLivraison;
 
     private String serviceLivraison;
+
+    @ManyToOne
+    private client client;
+
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    private List<ligneCommande> lignes;
 
     public commande() {}
 
