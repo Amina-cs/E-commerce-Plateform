@@ -21,6 +21,16 @@
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <property name="hibernate.cache.use_query_cache">false</property>
 
+        <!-- ENTITES -->
+        <mapping class="org.example.ecommerce_plateform.entities.admin"/>
+        <mapping class="org.example.ecommerce_plateform.entities.categorie"/>
+        <mapping class="org.example.ecommerce_plateform.entities.client"/>
+        <mapping class="org.example.ecommerce_plateform.entities.commande"/>
+        <mapping class="org.example.ecommerce_plateform.entities.evaluation"/>
+        <mapping class="org.example.ecommerce_plateform.entities.favoris"/>
+        <mapping class="org.example.ecommerce_plateform.entities.ligneCommande"/>
+        <mapping class="org.example.ecommerce_plateform.entities.produit"/>
+        <mapping class="org.example.ecommerce_plateform.entities.utilisateur"/>
 
     </session-factory>
 </hibernate-configuration>

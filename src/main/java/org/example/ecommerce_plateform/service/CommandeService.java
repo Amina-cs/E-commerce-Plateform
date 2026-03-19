@@ -43,6 +43,7 @@ public class CommandeService {
             ligne.setQuantite(quantite);
             ligne.setPrixProduit(produit.getPrixProduit());
             ligne.setCommande(commande);
+            lignes.add(ligne);
 
             // Sauvegarde via DAO
             ligneCommandeDAO.save(ligne);

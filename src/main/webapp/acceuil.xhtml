@@ -1,16 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Accueil</title>
     </h:head>
+
     <h:body>
-        <h1>hello</h1>
+
+        <div class="navbar">
+            Bienvenue #{authBean.client.prenom}
+        </div>
+
+        <div class="container">
+
+            <div class="card">
+                <h2>👋 Accueil</h2>
+
+                <h:link styleClass="btn" value="🛍️ Produits" outcome="produits.xhtml"/>
+                <h:link styleClass="btn" value="❤️ Favoris" outcome="favoris.xhtml"/>
+                <h:link styleClass="btn" value="🛒 Panier" outcome="panier.xhtml"/>
+
+                <br/><br/>
+
+                <h:form>
+                    <h:commandButton styleClass="btn" value="🚪 Logout" action="#{authBean.logout}" />
+                </h:form>
+            </div>
+
+            <div class="card">
+                <h3>📌 Infos</h3>
+                Email : #{authBean.client.email} <br/>
+                Téléphone : #{authBean.client.num}
+            </div>
+
+        </div>
+
     </h:body>
-</f:view>
-</html>
+</h:html>

@@ -1,66 +1,77 @@
 package org.example.ecommerce_plateform.DAO;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.example.ecommerce_plateform.entities.evaluation;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import org.example.ecommerce_plateform.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
+@ApplicationScoped  // Rend le DAO injectable via CDI
 public class EvaluationDAO {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ecommercePU");
-
+    // Sauvegarder une évaluation
     public void save(evaluation eval) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(eval);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.persist(eval);  // ou session.save(eval)
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
         }
     }
 
+    // Trouver une évaluation par ID
     public evaluation findById(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(evaluation.class, id);
-        } finally {
-            em.close();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(evaluation.class, id);
         }
     }
 
+    // Récupérer toutes les évaluations
     public List<evaluation> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("FROM evaluation", evaluation.class).getResultList();
-        } finally {
-            em.close();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from evaluation", evaluation.class).list();
         }
     }
 
+    // Mettre à jour une évaluation
     public void update(evaluation eval) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(eval);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.merge(eval);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
         }
     }
 
-    public void delete(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            evaluation eval = em.find(evaluation.class, id);
-            if (eval != null) {
-                em.remove(eval);
-            }
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+    // Supprimer une évaluation
+    public void delete(evaluation eval) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.remove(eval);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    // Récupérer toutes les évaluations d'un produit
+    public List<evaluation> getByProduit(int produitId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "from evaluation e where e.produit.idProduit = :id",
+                            evaluation.class)
+                    .setParameter("id", produitId)
+                    .list();
         }
     }
 }

@@ -1,79 +1,69 @@
 package org.example.ecommerce_plateform.DAO;
 
 import org.example.ecommerce_plateform.entities.favoris;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import org.example.ecommerce_plateform.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
 public class FavorisDAO {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ecommercePU");
-
     public void save(favoris fav) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(fav);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.persist(fav);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
         }
     }
 
     public favoris findById(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(favoris.class, id);
-        } finally {
-            em.close();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(favoris.class, id);
         }
     }
 
     public List<favoris> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("FROM favoris", favoris.class).getResultList();
-        } finally {
-            em.close();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from favoris", favoris.class).list();
         }
     }
 
     public void update(favoris fav) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(fav);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.merge(fav);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
         }
     }
 
-    public void delete(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            favoris fav = em.find(favoris.class, id);
-            if (fav != null) {
-                em.remove(fav);
-            }
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+    public void delete(favoris fav) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.remove(fav);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
         }
     }
 
-    // récupérer les favoris d'un utilisateur
+    // 🔥 récupérer les favoris d’un utilisateur
     public List<favoris> findByUtilisateurId(int utilisateurId) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery(
-                            "FROM favoris f WHERE f.utilisateur.idUtilisateur = :uid", favoris.class)
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "from favoris f where f.utilisateur.idUtilisateur = :uid", favoris.class)
                     .setParameter("uid", utilisateurId)
-                    .getResultList();
-        } finally {
-            em.close();
+                    .list();
         }
     }
 }

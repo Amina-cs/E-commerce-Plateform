@@ -1,0 +1,67 @@
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Produits</title>
+    </h:head>
+
+    <h:body>
+
+        <div class="container">
+            <div class="card">
+                <h:form>
+                    <h:selectOneMenu value="#{produitBean.selectedCategorieId}" onchange="submit()">
+                        <f:selectItem itemValue="0" itemLabel="Toutes catégories" />
+                        <f:selectItems value="#{categorieBean.categories}" var="c"
+                                       itemValue="#{c.idCategorie}" itemLabel="#{c.nomCategorie}" />
+                    </h:selectOneMenu>
+
+                    <h:commandButton value="Filtrer" action="#{produitBean.filtrerParCategorie}" />
+                </h:form>
+
+                <h2>🛍️ Produits</h2>
+
+                <h:dataTable value="#{produitBean.produits}" var="p" styleClass="table">
+
+                    <h:column>
+                        <f:facet name="header">Image</f:facet>
+                        <h:graphicImage value="#{p.imageProduit}" width="100" height="100" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nom</f:facet>
+                        #{p.nomProduit}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Prix</f:facet>
+                        #{p.prixProduit} DH
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Stock</f:facet>
+                        #{p.stock}
+                    </h:column>
+
+                    <h:column>
+                        <h:form>
+                            <h:commandButton styleClass="btn"
+                                             value="🛒"
+                                             action="#{panierBean.ajouterProduit(p)}"/>
+
+                            <h:commandButton styleClass="btn"
+                                             value="❤️"
+                                             action="#{favorisBean.ajouterFavori(p)}"/>
+                        </h:form>
+                    </h:column>
+
+                </h:dataTable>
+
+                <br/>
+                <h:link value="⬅ Retour" outcome="acceuil.xhtml"/>
+
+            </div>
+        </div>
+
+    </h:body>
+</h:html>

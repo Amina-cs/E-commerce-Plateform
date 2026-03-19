@@ -72,6 +72,22 @@ public class evaluation {
         this.date = date;
     }
 
+    public produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(produit produit) {
+        this.produit = produit;
+    }
+
+    public utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

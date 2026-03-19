@@ -1,6 +1,7 @@
 package org.example.ecommerce_plateform.service;
 
 import org.example.ecommerce_plateform.DAO.UtilisateurDAO;
+import org.example.ecommerce_plateform.entities.client;
 import org.example.ecommerce_plateform.entities.utilisateur;
 
 public class AuthService {
@@ -21,6 +22,19 @@ public class AuthService {
         }
 
         return user;
+    }
+
+    // SIGN UP
+    public void register(client c) {
+
+        // vérifier si email existe
+        utilisateur existing = utilisateurDAO.findByEmail(c.getEmail());
+
+        if (existing != null) {
+            throw new RuntimeException("Email déjà utilisé");
+        }
+
+        utilisateurDAO.save(c);
     }
 
     // logout dans les servlet

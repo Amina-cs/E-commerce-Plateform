@@ -1,11 +1,13 @@
 package org.example.ecommerce_plateform.DAO;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.example.ecommerce_plateform.entities.produit;
 import org.example.ecommerce_plateform.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;
 
+@ApplicationScoped
 public class ProduitDAO {
     public void save(produit produit) {
         Transaction tx = null;

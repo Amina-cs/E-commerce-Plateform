@@ -1,0 +1,51 @@
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Panier</title>
+    </h:head>
+
+    <h:body>
+
+        <div class="container">
+            <div class="card">
+
+                <h2>🛒 Mon Panier</h2>
+
+                <h:dataTable value="#{panierBean.items}" var="item" styleClass="table">
+
+                    <h:column>
+                        #{item.key.nomProduit}
+                    </h:column>
+
+                    <h:column>
+                        #{item.key.prixProduit}
+                    </h:column>
+
+                    <h:column>
+                        <h:inputText value="#{item.value}" style="width:50px"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton styleClass="btn"
+                                         value="❌"
+                                         action="#{panierBean.supprimerProduit(item.key)}"/>
+                    </h:column>
+
+                </h:dataTable>
+
+                <h3>Total : #{panierBean.total} DH</h3>
+
+                <h:commandButton styleClass="btn"
+                                 value="✅ Commander"
+                                 action="#{commandeBean.passerCommande}" />
+
+                <br/>
+                <h:link value="⬅ Retour" outcome="acceuil.xhtml"/>
+
+            </div>
+        </div>
+
+    </h:body>
+</h:html>

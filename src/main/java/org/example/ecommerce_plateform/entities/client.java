@@ -26,7 +26,7 @@ public class client extends utilisateur {
         return adresse;
     }
 
-    public void setVille( adresse adresse ) {
+    public void setAdresse(adresse adresse ) {
         this.adresse = adresse;
     }
 

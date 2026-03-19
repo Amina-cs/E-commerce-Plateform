@@ -1,0 +1,35 @@
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+
+        <div class="container">
+            <div class="card">
+
+                <h2>❤️ Mes Favoris</h2>
+
+                <h:dataTable value="#{favorisBean.liste}" var="f" styleClass="table">
+
+                    <h:column>
+                        <f:facet name="header">Nom</f:facet>
+                        #{f.nomProduit}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Prix</f:facet>
+                        #{f.prixProduit} DH
+                    </h:column>
+
+                </h:dataTable>
+
+                <br/>
+                <h:link value="⬅ Retour" outcome="acceuil.xhtml"/>
+
+            </div>
+        </div>
+
+    </h:body>
+</h:html>
