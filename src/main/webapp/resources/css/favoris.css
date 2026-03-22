@@ -1,0 +1,173 @@
+/* Thème Maroche - Favoris */
+
+body.maroche-theme {
+    background-color: #faf9f6;
+    color: #1a1a1a;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.fav-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.fav-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #a67c52;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.luxury-divider {
+    text-align: center;
+    margin: 20px 0;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 0.1em;
+}
+
+.luxury-divider span {
+    background: #faf9f6;
+    padding: 0 15px;
+    color: #c5a059;
+}
+
+/* Grille de Favoris */
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.fav-card {
+    background: white;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+    border: 1px solid #f1f2f6;
+}
+
+.fav-card:hover {
+    transform: translateY(-5px);
+}
+
+.fav-img-wrapper {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.fav-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.9);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.remove-overlay:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Détails Card */
+.fav-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.fav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+}
+
+.fav-price {
+    display: block;
+    color: #a67c52;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.fav-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-view, .btn-to-cart {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #1a1a1a;
+    background: transparent;
+    color: #1a1a1a;
+    transition: 0.3s;
+}
+
+.btn-to-cart {
+    background: #1a1a1a;
+    color: white;
+}
+
+.btn-to-cart:hover {
+    background: #a67c52;
+    border-color: #a67c52;
+}
+
+.btn-view:hover {
+    background: #f8f9fa;
+}
+
+.empty-fav {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.btn-discover {
+    display: inline-block;
+    margin-top: 20px;
+    background: #1a1a1a;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}

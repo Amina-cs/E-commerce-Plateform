@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Maroche - Mes Coups de Cœur</title>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/favoris.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+    </h:head>
+
+    <h:body styleClass="maroche-theme">
+        <div class="container">
+            <header class="fav-header">
+                <h:link outcome="acceuil" styleClass="back-link">← Retour à la collection</h:link>
+                <h1>Mes Coups de Cœur</h1>
+                <div class="luxury-divider"><span>✦</span></div>
+            </header>
+
+            <h:panelGroup id="favGrid" layout="block" styleClass="favorites-grid">
+                <h:panelGroup rendered="#{empty favorisBean.list}">
+                    <div class="empty-fav">
+                        <p>Votre liste de souhaits est encore vide.</p>
+                        <h:link outcome="acceuil" styleClass="btn-discover">Explorer nos créations</h:link>
+                    </div>
+                </h:panelGroup>
+
+                <ui:repeat value="#{favorisBean.list}" var="f">
+                    <div class="fav-card">
+                        <div class="fav-img-wrapper">
+                            <h:graphicImage value="#{f.imageProduit}" styleClass="fav-img"/>
+                            <h:form>
+                                <h:commandLink action="#{favorisBean.supprimer(f)}"
+                                               styleClass="remove-overlay"
+                                               title="Retirer des favoris">
+                                    <span>×</span>
+                                    <f:ajax render="favGrid" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+
+                        <div class="fav-details">
+
+                            <h3 class="fav-name">#{f.nomProduit}</h3>
+                            <span class="fav-price">#{f.prixProduit} DH</span>
+
+                            <h:form styleClass="fav-actions">
+                                <h:commandLink action="#{produitBean.detailsProduit(f)}" styleClass="btn-view">
+                                    Détails
+                                </h:commandLink>
+                                <h:commandButton value="Panier"
+                                                 action="#{panierBean.ajouterAuPanier(f)}"
+                                                 styleClass="btn-to-cart" />
+                            </h:form>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </h:panelGroup>
+        </div>
+    </h:body>
+</f:view>
+</html>

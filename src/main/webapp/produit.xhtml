@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Détail du produit - #{produitBean.product_clicked.nomProduit}</title>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/produit.css?v=#{now.time}" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+    </h:head>
+    <h:body styleClass="maroche-theme">
+        <div class="top-banner">
+            <h:link outcome="acceuil" styleClass="back-btn">
+                <i class="fas fa-chevron-left"></i> Retour à la Collection
+            </h:link>
+        </div>
+
+        <div class="container">
+            <div class="product-showcase">
+                <div class="image-gallery">
+                    <h:graphicImage value="#{produitBean.product_clicked.imageProduit}"
+                                    styleClass="hero-image" />
+                </div>
+
+                <div class="product-details">
+                    <span class="brand-tag">Maroche Exclusive</span>
+                    <h1 class="product-title">#{produitBean.product_clicked.nomProduit}</h1>
+
+                    <div class="price-tag">
+                        <h:outputText value="#{produitBean.product_clicked.prixProduit}">
+                            <f:convertNumber pattern="#,##0" />
+                        </h:outputText>
+                        <span class="currency">DH</span>
+                    </div>
+
+                    <div class="luxury-divider"><span>✦</span></div>
+
+                    <p class="product-desc">#{produitBean.product_clicked.descriptionProduit}</p>
+
+                    <h:form styleClass="action-area">
+                        <h:commandButton value="Ajouter au Panier"
+                                         action="#{panierBean.ajouterAuPanier(produitBean.product_clicked)}"
+                                         styleClass="btn-maroche-primary" />
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="guestbook-section">
+                <h3 class="section-title">Avis des Clients</h3>
+
+                <h:form id="reviewForm" styleClass="maroche-form">
+                    <div class="rating-wrapper">
+                        <label>Votre appréciation</label>
+                        <h:selectOneRadio value="#{produitBean.nouvelleNote}" styleClass="star-selector">
+                            <f:selectItem itemValue="5" itemLabel="5★" />
+                            <f:selectItem itemValue="4" itemLabel="4★" />
+                            <f:selectItem itemValue="3" itemLabel="3★" />
+                            <f:selectItem itemValue="2" itemLabel="2★" />
+                            <f:selectItem itemValue="1" itemLabel="1★" />
+                        </h:selectOneRadio>
+                    </div>
+
+                    <h:inputTextarea value="#{produitBean.commentaire}"
+                                     placeholder="Laissez votre témoignage..."
+                                     styleClass="maroche-input" />
+
+                    <div class="submit-wrapper">
+                        <h:commandButton value="Partager mon avis" action="#{produitBean.publierEvaluation()}" styleClass="btn-maroche-outline">
+                            <f:ajax execute="@form" render="reviewsList reviewForm" />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+
+                <h:panelGroup id="reviewsList">
+                    <ui:repeat value="#{produitBean.listEvaluations.entrySet().toArray()}" var="a">
+                        <div class="testimonial-card">
+                            <div class="card-header">
+                                <span class="client-name">#{a.key.client.prenom} #{a.key.client.nom}</span>
+                                <span class="date-stamp">
+                                    <h:outputText value="#{a.key.date}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                    </h:outputText>
+                                </span>
+                                <h:form rendered="#{a.value}">
+                                    <h:commandLink action="#{produitBean.deleteEvaluation(a.key)}"
+                                                   styleClass="remove-overlay-small">
+                                        <span>×</span>
+                                        <f:ajax render="reviewsList" />
+                                    </h:commandLink>
+                                </h:form>
+                            </div>
+
+                            <div class="gold-stars">
+                                #{'★'.repeat(a.key.nbrEtoile)}#{'☆'.repeat(5-a.key.nbrEtoile)}
+                            </div>
+
+                            <p class="comment-body">#{a.key.commentaire}</p>
+                        </div>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>

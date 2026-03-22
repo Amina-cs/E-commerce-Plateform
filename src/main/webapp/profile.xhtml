@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <h:outputStylesheet library="css" name="acceuil.css" />
+    <title>Maroché - Mon Profil</title>
+</h:head>
+<h:body>
+    <div class="navbar">
+        <h:link outcome="acceuil" styleClass="logo">Maro<span>ché</span></h:link>
+        <div class="nav-right">
+            <h:link outcome="acceuil" style="text-decoration: none; color: var(--text-muted);">Retour à l'accueil</h:link>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+        <div class="card" style="padding: 30px; background: #FAF7F2; border-radius: 15px; border: 1px solid #D6CCBA;">
+
+            <div style="text-align: center; margin-bottom: 30px;">
+                <img src="resources/images/alt_img.webp"
+                     style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #D6CCBA;" alt="Avatar" />
+                <h2 style="font-family: 'Cormorant Garamond', serif,serif; margin-top: 15px;">Mon Profil</h2>
+                <p style="color: #7A7060; font-size: 13px;">Gérez vos informations personnelles</p>
+            </div>
+
+            <h:form id="profileForm">
+                <h:messages globalOnly="true" styleClass="info-msg" style="color: #4A6B4A; list-style: none; text-align: center; margin-bottom: 20px;"/>
+
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <h:outputLabel value="Nom" style="font-size: 11px; text-transform: uppercase; color: #A89F90;"/>
+                        <h:inputText value="#{authBean.client.nom}" required="true" requiredMessage="Nom requis" styleClass="search-bar" style="width: 100%; border-radius: 8px;"/>
+                        <h:message for="@previous" style="color: #c0392b; font-size: 10px;"/>
+                    </div>
+                    <div class="input-group">
+                        <h:outputLabel value="Prénom" style="font-size: 11px; text-transform: uppercase; color: #A89F90;"/>
+                        <h:inputText value="#{authBean.client.prenom}" required="true" requiredMessage="Prénom requis" styleClass="search-bar" style="width: 100%; border-radius: 8px;"/>
+                        <h:message for="@previous" style="color: #c0392b; font-size: 10px;"/>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 15px;">
+                    <h:outputLabel value="Email" style="font-size: 11px; text-transform: uppercase; color: #A89F90;"/>
+                    <h:inputText value="#{authBean.client.email}" required="true" styleClass="search-bar" style="width: 100%; border-radius: 8px;">
+                        <f:validateRegex pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" />
+                    </h:inputText>
+                </div>
+
+                <div class="sidebar-title" style="margin: 25px 0 15px; border-bottom: 1px solid #D6CCBA; padding-bottom: 5px;">Adresse de livraison</div>
+
+                <div class="input-group">
+                    <h:outputLabel value="Rue " style="font-size: 11px; text-transform: uppercase; color: #A89F90;"/>
+                    <h:inputText value="#{authBean.client.adresse.rue}" styleClass="search-bar" style="width: 100%; border-radius: 8px;"/>
+                </div>
+
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div class="input-group">
+                        <h:outputLabel value="Ville " style="font-size: 11px; text-transform: uppercase; color:#A89F90;"/>
+                        <h:inputText value="#{authBean.client.adresse.ville}" styleClass="search-bar" style="width: 100%; border-radius: 8px;"/>
+                    </div>
+                    <div class="input-group">
+                        <h:outputLabel value="Téléphone" style="font-size: 11px; text-transform: uppercase; color: #A89F90;"/>
+                        <h:inputText value="#{authBean.client.num}" required="true" styleClass="search-bar" style="width: 100%; border-radius: 8px;"/>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h:commandButton value="Enregistrer les modifications"
+                                     action="#{authBean.updateProfile}"
+                                     styleClass="btn-auth"
+                                     style="width: 100%; padding: 12px; border-radius: 10px; cursor: pointer;">
+                        <f:ajax execute="@form" render="@form" />
+                    </h:commandButton>
+                </div>
+                <div style="margin: 10px;" >
+                <h:link value="Voir mes produits favoris" outcome="favoris" style="
+                 width: 46%; padding: 12px; border-radius: 10px; cursor: pointer;
+                background:#8FAF8F;
+               color:#FAF7F2;
+               margin-left:10px ;
+               border: none;
+               border-radius: 20px;
+               padding: 7px 20px;
+               font-size: 13px;
+               font-family: 'DM Sans', sans-serif;
+               font-weight: 500;
+               cursor: pointer;
+               letter-spacing: 0.02em;
+               transition: background 0.2s;
+               text-decoration: none;
+               display: inline-flex;
+               align-items: flex-start;
+                margin-right: 15px" />
+                <h:link value="Historique de mes achats" outcome="historiqueAchats" style="
+                 width: 46%; padding: 12px; border-radius: 10px; cursor: pointer;
+                background:#8FAF8F;
+               color: #FAF7F2;
+               border: none;
+               border-radius: 20px;
+               padding: 7px 20px;
+               font-size: 13px;
+               font-family: 'DM Sans', sans-serif;
+               font-weight: 500;
+               cursor: pointer;
+               letter-spacing: 0.02em;
+               transition: background 0.2s;
+               text-decoration: none;
+               display: inline-flex;
+               align-items: flex-end;
+                " />
+                </div>
+                </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

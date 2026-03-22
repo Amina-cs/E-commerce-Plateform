@@ -1,0 +1,101 @@
+:root {
+    --maroche-gold: #c5a059;
+    --maroche-dark: #1a1a1a;
+    --maroche-clay: #a67c52;
+    --maroche-bg: #faf9f6;
+    --white: #ffffff;
+}
+
+body.maroche-theme {
+    background-color: var(--maroche-bg);
+    font-family: 'Poppins', sans-serif;
+    color: var(--maroche-dark);
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+/* Header */
+.history-header { text-align: center; margin-bottom: 50px; }
+.history-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+.subtitle { color: var(--maroche-clay); font-style: italic; font-size: 0.95rem; }
+
+.luxury-divider { text-align: center; margin: 20px 0; border-bottom: 1px solid #ddd; line-height: 0.1em; }
+.luxury-divider span { background: var(--maroche-bg); padding: 0 15px; color: var(--maroche-gold); }
+
+/* Order Card */
+.order-card {
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+    border: 1px solid #f0efeb;
+}
+
+.order-info-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #fdfdfb;
+    border-bottom: 1px solid #f0efeb;
+    flex-wrap: wrap;
+}
+
+.info-group { display: flex; flex-direction: column; gap: 4px; }
+.label { font-size: 0.75rem; text-transform: uppercase; color: #999; letter-spacing: 1px; }
+.value { font-weight: 600; font-size: 0.9rem; }
+.value.gold { color: var(--maroche-gold); font-size: 1.1rem; }
+
+/* Badges de Statut */
+.status-badge {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.status-badge.livré { background: #e1f5fe; color: #039be5; }
+.status-badge.en_cours { background: #fff3e0; color: #f57c00; }
+
+/* Items list */
+.order-items { padding: 0 20px; }
+.item-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f9f8f6;
+    gap: 20px;
+}
+.item-row:last-child { border-bottom: none; }
+
+.item-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+.item-details { flex: 1; }
+.item-details h4 { margin: 0; font-size: 0.95rem; font-weight: 600; }
+.item-details p { margin: 5px 0 0; font-size: 0.85rem; color: #777; }
+
+.btn-reorder {
+    font-size: 0.8rem;
+    color: var(--maroche-clay);
+    text-decoration: none;
+    border: 1px solid var(--maroche-clay);
+    padding: 6px 12px;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+.btn-reorder:hover { background: var(--maroche-clay); color: white; }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 100px 20px; }
+.btn-shop {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--maroche-dark);
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+}

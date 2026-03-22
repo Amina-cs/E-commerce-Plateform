@@ -1,0 +1,128 @@
+/* Variables de la marque */
+:root {
+    --beige-bg:     #F5F0E8;
+    --cream-card:   #FAF7F2;
+    --sage-deep:    #4A6B4A;
+    --sage-soft:    #6B8C6B;
+    --border-tan:   #D6CCBA;
+    --text-dark:    #2C2C2A;
+    --text-light:   #7A7060;
+}
+
+body {
+    background-color: var(--beige-bg);
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background: var(--cream-card);
+    width: 100%;
+    max-width: 380px;
+    padding: 3rem 2.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-tan);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+    text-align: center;
+}
+
+/* Typographie */
+.brand-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--sage-deep);
+    margin-bottom: 0.5rem;
+}
+.brand-logo span { color: var(--text-light); font-weight: 400; }
+
+h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    color: var(--text-dark);
+    margin: 0.5rem 0;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+/* Champs de saisie */
+.input-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--border-tan);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text-dark);
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-bottom-color: var(--sage-soft);
+}
+
+/* Bouton */
+.btn-submit {
+    width: 100%;
+    background-color: var(--sage-deep);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 40px; /* Plus arrondi pour le style luxe */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--sage-soft);
+    transform: translateY(-1px);
+}
+
+/* Pied de page */
+.footer-links {
+    margin-top: 2rem;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.footer-links a {
+    color: var(--sage-deep);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.error-msg {
+    display: block;
+    margin-top: 1rem;
+    color: #a94442;
+    font-size: 12px;
+}

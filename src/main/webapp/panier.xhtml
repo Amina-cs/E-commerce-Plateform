@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/panier.css?v=#{now.time}" />
+    <title>Maroché - Panier</title>
+</h:head>
+<h:body>
+    <div class="navbar">
+        <h:link outcome="acceuil" styleClass="logo">Maro<span>ché</span></h:link>
+        <div class="nav-right">
+            <h:link outcome="acceuil" style="text-decoration: none; color: var(--text-muted);">Continuer mes achats</h:link>
+        </div>
+    </div>
+
+    <div class="cart-container">
+        <h:form id="cartForm">
+            <h2 class="cart-title">Votre Panier <span>(#{panierBean.nbrProduits} articles)</span></h2>
+
+            <div class="cart-wrapper">
+                <div class="cart-items">
+                    <h:panelGroup rendered="#{empty panierBean.produits}">
+                        <div class="empty-cart">
+                            <p>Votre panier est actuellement vide.</p>
+                            <h:link outcome="acceuil" value="Découvrir nos produits" styleClass="btn-auth" />
+                        </div>
+                    </h:panelGroup>
+
+                    <ui:repeat value="#{panierBean.produits}" var="entry">
+                        <div class="cart-item">
+                            <img src="#{entry.key}" class="cart-item-img" />
+                            <div class="cart-item-details">
+                                <span class="card-cat">#{entry.key.categorie}</span>
+                                <h3 class="item-name">#{entry.key.nomProduit}</h3>
+                                <p class="item-price">#{entry.key.prixProduit} MAD</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-control">
+                                    <h:commandLink action="#{panierBean.modifierQuantite(entry.key, -1)}">
+                                        <f:ajax render="@form" /> —
+                                    </h:commandLink>
+                                    <span>#{entry.value}</span>
+                                    <h:commandLink action="#{panierBean.modifierQuantite(entry.key, 1)}">
+                                        <f:ajax render="@form" /> +
+                                    </h:commandLink>
+                                </div>
+                                <h:commandLink action="#{panierBean.retirerproduit(entry.key)}" styleClass="remove-link">
+                                    <f:ajax render="@form" /> Supprimer
+                                </h:commandLink>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h3>Résumé</h3>
+                        <div class="summary-line">
+                            <span>Sous-total</span>
+                            <span>#{panierBean.total} MAD</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Livraison</span>
+                            <span>Gratuite</span>
+                        </div>
+                        <hr />
+                        <div class="summary-line total">
+                            <span>Total</span>
+                            <span>#{panierBean.total} MAD</span>
+                        </div>
+                        <h:commandButton value="Commander" action="#{panierBean.commander()}" styleClass="btn-auth" style="width: 100%; margin-top: 20px;" />
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

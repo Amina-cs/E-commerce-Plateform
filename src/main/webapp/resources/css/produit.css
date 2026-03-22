@@ -1,0 +1,265 @@
+/* Thème Maroche Complet - Valeurs fixes */
+
+body.maroche-theme {
+    background-color: #faf9f6;
+    color: #1a1a1a;
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Navigation Haute */
+.top-banner {
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #a67c52;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin:20px ;
+}
+
+.back-btn:hover {
+    color: #1a1a1a;
+}
+
+/* Product Showcase (Grille) */
+.product-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.03);
+    align-items: center;
+}
+
+.image-gallery {
+    text-align: center;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 2px;
+}
+
+/* Infos Produit */
+.product-details {
+    padding: 20px;
+}
+
+.brand-tag {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.75rem;
+    color: #a67c52;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.product-title {
+    font-size: 2.8rem;
+    margin: 0 0 15px 0;
+    font-weight: 400;
+}
+
+.price-tag {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+}
+
+.currency {
+    font-size: 1rem;
+    margin-left: 5px;
+    color: #a67c52;
+}
+
+.luxury-divider {
+    text-align: center;
+    margin: 30px 0;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 0.1em;
+}
+
+.luxury-divider span {
+    background: #ffffff;
+    padding: 0 15px;
+    color: #c5a059;
+}
+
+.product-desc {
+    line-height: 1.8;
+    color: #444444;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+}
+
+/* Boutons */
+.btn-maroche-primary {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 20px 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.btn-maroche-primary:hover {
+    background: #a67c52;
+}
+
+.btn-maroche-outline {
+    background: transparent;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
+    padding: 12px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.3s;
+}
+
+.btn-maroche-outline:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Section Avis (Guestbook) */
+.guestbook-section {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid #dddddd;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+.maroche-form {
+    max-width: 650px;
+    margin: 0 auto 80px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.rating-wrapper {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.rating-wrapper label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #a67c52;
+}
+
+.star-selector td {
+    padding: 10px 15px 10px 0;
+}
+
+.maroche-input {
+    width: 100%;
+    border: 1px solid #eeeeee;
+    border-bottom: 2px solid #c5a059;
+    padding: 20px;
+    background: #fafafa;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 25px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.submit-wrapper {
+    text-align: right;
+}
+
+/* Cartes Témoignages */
+.testimonials {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    border-left: 4px solid #c5a059;
+    padding: 30px;
+    margin-bottom: 25px;
+    background: #ffffff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.client-name {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.date-stamp {
+    color: #b2bec3;
+    font-size: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.gold-stars {
+    color: #c5a059;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.comment-body {
+    font-style: italic;
+    color: #444444;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+
+.remove-overlay-small {
+    text-decoration: none;
+    color: #e74c3c; /* Un rouge discret */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 5px;
+}
+
+.remove-overlay-small:hover {
+    color: #c0392b;
+    transform: scale(1.2);
+}

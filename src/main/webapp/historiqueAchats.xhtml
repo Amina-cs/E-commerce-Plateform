@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Maroche - Mon Historique</title>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/historique.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+    </h:head>
+    <h:body styleClass="maroche-theme">
+        <div class="container">
+            <header class="history-header">
+                <h:link outcome="acceuil" style="margin: 20px;text-decoration: none; color: #7A7060;">Retour à l'accueil</h:link>
+
+                <h1>Mes Acquisitions</h1>
+                <p class="subtitle">Retrouvez l'élégance de vos sélections passées</p>
+                <div class="luxury-divider"><span>✦</span></div>
+            </header>
+
+            <h:panelGroup rendered="#{empty historiqueBean.commandes}">
+                <div class="empty-state">
+                    <p>Votre carnet de commandes est encore vierge.</p>
+                    <h:link outcome="acceuil" styleClass="btn-shop">Découvrir la Collection</h:link>
+                </div>
+            </h:panelGroup>
+
+            <div class="orders-list">
+                <ui:repeat value="#{historiqueBean.commandes}" var="cmd">
+                    <div class="order-card">
+                        <div class="order-info-bar">
+                            <div class="info-group">
+                                <span class="label">Commande N°</span>
+                                <span class="value">#MAR-#{cmd.idCommande}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="label">Date</span>
+                                <span class="value">
+                                    <h:outputText value="#{cmd.date}">
+                                        <f:convertDateTime pattern="dd MMMM yyyy HH:mm" locale="fr_FR"/>
+                                    </h:outputText>
+                                </span>
+                            </div>
+                            <div class="info-group">
+                                <span class="label">Statut</span>
+                                <span class="status-badge #{cmd.status}">#{cmd.status}</span>
+                            </div>
+                            <div class="info-group total">
+                                <span class="label">Total</span>
+                                <span class="value gold">#{cmd.prixTotal} DH</span>
+                            </div>
+                        </div>
+
+                        <div class="order-items">
+                            <ui:repeat value="#{cmd.lignes}" var="ligne">
+                                <div class="item-row">
+                                    <h:graphicImage value="#{ligne.produit.imageProduit}" styleClass="item-thumb"/>
+                                    <div class="item-details">
+                                        <h4>#{ligne.produit.nomProduit}</h4>
+                                        <p>Quantité : #{ligne.quantite}</p>
+                                    </div>
+                                    <div class="item-price">
+                                        #{ligne.prixProduit} DH
+                                    </div>
+                                    <h:form>
+                                        <h:commandLink action="#{produitBean.detailsProduit(ligne.produit)}" styleClass="btn-reorder">
+                                            Voir l'article
+                                        </h:commandLink>
+                                    </h:form>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>
