@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Modifier Produit — Admin Maroché</title>
+        <h:outputStylesheet library="css" name="admin.css" />
+    </h:head>
+
+    <h:body>
+
+        <!-- ─── Navbar ─────────────────────────────────────────── -->
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                Maro<span>ché</span>
+                <span class="admin-logo-badge">Admin</span>
+            </div>
+            <div class="admin-nav-right">
+                <h:link outcome="profilAdmin" styleClass="admin-nav-link">Tableau de bord</h:link>
+                <h:link outcome="produits" styleClass="admin-nav-link active">Produits</h:link>
+                <h:link outcome="categories" styleClass="admin-nav-link">Catégories</h:link>
+                <h:form style="display:inline;">
+                    <h:commandLink action="#{authBean.logout}" styleClass="admin-nav-link"
+                                   style="color:#a94442;">
+                        Déconnexion
+                    </h:commandLink>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- ─── Hero ───────────────────────────────────────────── -->
+        <div class="admin-hero">
+            <div>
+                <div class="admin-hero-title">Modifier le Produit</div>
+                <div class="admin-hero-sub">#{produitAdminBean.produit.nomProduit}</div>
+            </div>
+            <div class="admin-hero-actions">
+                <h:link outcome="produits" styleClass="btn-outline">
+                    ← Retour aux produits
+                </h:link>
+            </div>
+        </div>
+
+        <!-- ─── Main Layout ────────────────────────────────────── -->
+        <div class="admin-main">
+
+            <!-- Sidebar -->
+            <div class="admin-sidebar">
+                <div class="sidebar-section-title">Navigation</div>
+                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">👤</span> Profil
+                </h:link>
+                <h:link outcome="produits" styleClass="sidebar-nav-link active">
+                    <span class="nav-icon">📦</span> Produits
+                </h:link>
+                <h:link outcome="categories" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">🗂️</span> Catégories
+                </h:link>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+
+                <div class="section-heading">Informations du produit</div>
+
+                <h:form styleClass="admin-form-card">
+
+                    <div class="form-group">
+                        <label class="form-label">Nom du produit</label>
+                        <h:inputText value="#{produitAdminBean.produit.nomProduit}"
+                                     styleClass="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Prix (MAD)</label>
+                        <h:inputText value="#{produitAdminBean.produit.prixProduit}"
+                                     styleClass="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Stock</label>
+                        <h:inputText value="#{produitAdminBean.produit.stock}"
+                                     styleClass="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <h:inputTextarea value="#{produitAdminBean.produit.descriptionProduit}"
+                                         styleClass="form-textarea" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Image URL</label>
+                        <h:inputText value="#{produitAdminBean.produit.imageProduit}"
+                                     styleClass="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Catégorie</label>
+                        <h:selectOneMenu value="#{produitAdminBean.produit.categorie}"
+                                         styleClass="form-select">
+                            <f:selectItems value="#{produitAdminBean.categories}"
+                                           var="c"
+                                           itemLabel="#{c.nomCategorie}"
+                                           itemValue="#{c}" />
+                        </h:selectOneMenu>
+                    </div>
+
+                    <div style="display:flex; gap:10px; margin-top:8px;">
+                        <h:commandButton value="Mettre à jour"
+                                         action="#{produitAdminBean.updateProduit}"
+                                         styleClass="btn-primary" />
+                        <h:link outcome="produits" styleClass="btn-outline">
+                            Annuler
+                        </h:link>
+                    </div>
+
+                </h:form>
+
+            </div>
+        </div>
+
+    </h:body>
+</f:view>
+</html>

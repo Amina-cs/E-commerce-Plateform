@@ -1,11 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <h:head>
+        <title>Dashboard Admin — Maroché</title>
+        <h:outputStylesheet library="css" name="admin.css" />
+    </h:head>
+
+    <h:body>
+
+        <!-- ─── Navbar ─────────────────────────────────────────── -->
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                Maro<span>ché</span>
+                <span class="admin-logo-badge">Admin</span>
+            </div>
+            <div class="admin-nav-right">
+                <h:link outcome="produits" styleClass="admin-nav-link">Produits</h:link>
+                <h:link outcome="categories" styleClass="admin-nav-link">Catégories</h:link>
+                <h:form style="display:inline;">
+                    <h:commandButton value="Déconnexion"
+                                     action="#{authBean.logout}"
+                                     styleClass="admin-nav-link"
+                                     style="color:#a94442; background:none; border:none; cursor:pointer;" />
+                </h:form>
+            </div>
+        </div>
+
+        <!-- ─── Hero ───────────────────────────────────────────── -->
+        <div class="admin-hero">
+            <div>
+                <div class="admin-hero-title">Dashboard Admin</div>
+                <div class="admin-hero-sub">Bienvenue, #{authBean.admin.prenom} #{authBean.admin.nom}</div>
+            </div>
+        </div>
+
+        <!-- ─── Main Layout ────────────────────────────────────── -->
+        <div class="admin-main">
+
+            <!-- Sidebar -->
+            <div class="admin-sidebar">
+                <div class="sidebar-section-title">Navigation</div>
+                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link active">
+                    <span class="nav-icon">👤</span> Profil
+                </h:link>
+                <h:link outcome="produits" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">📦</span> Produits
+                </h:link>
+                <h:link outcome="categories" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">🗂️</span> Catégories
+                </h:link>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+
+                <!-- Profil -->
+                <div class="section-heading">Profil Administrateur</div>
+                <div class="profile-card">
+                    <div class="profile-card-row">
+                        <span class="profile-card-label">Nom</span>
+                        <span class="profile-card-value">#{authBean.admin.nom}</span>
+                    </div>
+                    <div class="profile-card-row">
+                        <span class="profile-card-label">Prénom</span>
+                        <span class="profile-card-value">#{authBean.admin.prenom}</span>
+                    </div>
+                    <div class="profile-card-row">
+                        <span class="profile-card-label">Email</span>
+                        <span class="profile-card-value">#{authBean.admin.email}</span>
+                    </div>
+                    <div class="profile-card-row">
+                        <span class="profile-card-label">Téléphone</span>
+                        <span class="profile-card-value">#{authBean.admin.num}</span>
+                    </div>
+                </div>
+
+                <!-- Gestion -->
+                <div class="section-heading" style="margin-top: 2.5rem;">Gestion de la plateforme</div>
+                <div class="dashboard-grid">
+
+                    <h:link outcome="produits" styleClass="dashboard-card">
+                        <span class="dashboard-card-icon">📦</span>
+                        <h2>Produits</h2>
+                        <p>Ajouter, modifier et supprimer des produits</p>
+                    </h:link>
+
+                    <h:link outcome="categories" styleClass="dashboard-card">
+                        <span class="dashboard-card-icon">🗂️</span>
+                        <h2>Catégories</h2>
+                        <p>Gérer les catégories du catalogue</p>
+                    </h:link>
+
+                </div>
+
+            </div>
+        </div>
+
+    </h:body>
 </f:view>
 </html>

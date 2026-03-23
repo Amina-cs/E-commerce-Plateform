@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Produits — Admin Maroché</title>
+        <h:outputStylesheet library="css" name="admin.css" />
+    </h:head>
+
+    <h:body>
+
+        <!-- ─── Navbar ─────────────────────────────────────────── -->
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                Maro<span>ché</span>
+                <span class="admin-logo-badge">Admin</span>
+            </div>
+            <div class="admin-nav-right">
+                <h:link outcome="profilAdmin" styleClass="admin-nav-link">Tableau de bord</h:link>
+                <h:link outcome="produits" styleClass="admin-nav-link active">Produits</h:link>
+                <h:link outcome="categories" styleClass="admin-nav-link">Catégories</h:link>
+                <h:form style="display:inline;">
+                    <h:commandLink action="#{authBean.logout}" styleClass="admin-nav-link"
+                                   style="color:#a94442;">
+                        Déconnexion
+                    </h:commandLink>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- ─── Hero ───────────────────────────────────────────── -->
+        <div class="admin-hero">
+            <div>
+                <div class="admin-hero-title">Gestion des Produits</div>
+                <div class="admin-hero-sub">#{produitAdminBean.produits.size()} produits au catalogue</div>
+            </div>
+            <div class="admin-hero-actions">
+                <h:link outcome="addProduit" styleClass="btn-primary">
+                    + Ajouter un produit
+                </h:link>
+            </div>
+        </div>
+
+        <!-- ─── Main Layout ────────────────────────────────────── -->
+        <div class="admin-main">
+
+            <!-- Sidebar -->
+            <div class="admin-sidebar">
+                <div class="sidebar-section-title">Navigation</div>
+                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">👤</span> Profil
+                </h:link>
+                <h:link outcome="produits" styleClass="sidebar-nav-link active">
+                    <span class="nav-icon">📦</span> Produits
+                </h:link>
+                <h:link outcome="categories" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">🗂️</span> Catégories
+                </h:link>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+
+                <div class="section-heading">Liste des produits</div>
+
+                <h:dataTable value="#{produitAdminBean.produits}" var="p"
+                             styleClass="maroche-table">
+
+                    <h:column>
+                        <f:facet name="header">Image</f:facet>
+                        <h:graphicImage value="#{p.imageProduit}" width="64" height="64"
+                                        style="border-radius:6px; object-fit:cover;" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nom</f:facet>
+                        <span style="font-family: var(--font-display); font-size:15px; color: var(--text-main);">
+                        #{p.nomProduit}
+                    </span>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Prix</f:facet>
+                        <span style="font-family: var(--font-display); font-size:15px;
+                                 color: var(--sage-dark); font-weight:600;">
+                        #{p.prixProduit} MAD
+                    </span>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Catégorie</f:facet>
+                        <span style="font-size:11px; background: var(--beige-dark); color: var(--text-muted);
+                                 padding:2px 10px; border-radius:10px; font-weight:500; letter-spacing:0.04em;">
+                        #{p.categorie.nomCategorie}
+                    </span>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Stock</f:facet>
+                        #{p.stock}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:form>
+                            <div class="btn-actions">
+                                <h:commandButton value="Modifier"
+                                                 action="#{produitAdminBean.editProduit(p)}"
+                                                 styleClass="btn-outline" />
+                                <h:commandButton value="Supprimer"
+                                                 action="#{produitAdminBean.supprimerProduit(p)}"
+                                                 styleClass="btn-danger">
+                                    <f:ajax render="@all" />
+                                </h:commandButton>
+                            </div>
+                        </h:form>
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+        </div>
+
+    </h:body>
+</f:view>
+</html>

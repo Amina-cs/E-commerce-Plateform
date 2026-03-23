@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Catégories — Admin Maroché</title>
+        <h:outputStylesheet library="css" name="admin.css" />
+    </h:head>
+
+    <h:body>
+
+        <!-- ─── Navbar ─────────────────────────────────────────── -->
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                Maro<span>ché</span>
+                <span class="admin-logo-badge">Admin</span>
+            </div>
+            <div class="admin-nav-right">
+                <h:link outcome="profilAdmin" styleClass="admin-nav-link">Tableau de bord</h:link>
+                <h:link outcome="produits" styleClass="admin-nav-link">Produits</h:link>
+                <h:link outcome="categories" styleClass="admin-nav-link active">Catégories</h:link>
+                <h:form style="display:inline;">
+                    <h:commandLink action="#{authBean.logout}" styleClass="admin-nav-link"
+                                   style="color:#a94442;">
+                        Déconnexion
+                    </h:commandLink>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- ─── Hero ───────────────────────────────────────────── -->
+        <div class="admin-hero">
+            <div>
+                <div class="admin-hero-title">Gestion des Catégories</div>
+                <div class="admin-hero-sub">Organisez le catalogue de Maroché</div>
+            </div>
+            <div class="admin-hero-actions">
+                <h:link outcome="addCategorie" styleClass="btn-primary">
+                    + Ajouter une catégorie
+                </h:link>
+            </div>
+        </div>
+
+        <!-- ─── Main Layout ────────────────────────────────────── -->
+        <div class="admin-main">
+
+            <!-- Sidebar -->
+            <div class="admin-sidebar">
+                <div class="sidebar-section-title">Navigation</div>
+                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">👤</span> Profil
+                </h:link>
+                <h:link outcome="produits" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">📦</span> Produits
+                </h:link>
+                <h:link outcome="categories" styleClass="sidebar-nav-link active">
+                    <span class="nav-icon">🗂️</span> Catégories
+                </h:link>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+
+                <div class="section-heading">Liste des catégories</div>
+
+                <h:dataTable value="#{categorieAdminBean.categories}" var="c"
+                             styleClass="maroche-table">
+
+                    <h:column>
+                        <f:facet name="header">Nom</f:facet>
+                        <span style="font-family: var(--font-display); font-size:15px; color: var(--text-main);">
+                        #{c.nomCategorie}
+                    </span>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:form>
+                            <div class="btn-actions">
+                                <h:commandButton value="Modifier"
+                                                 action="#{categorieAdminBean.editCategorie(c)}"
+                                                 styleClass="btn-outline" />
+                                <h:commandButton value="Supprimer"
+                                                 action="#{categorieAdminBean.supprimerCategorie(c)}"
+                                                 styleClass="btn-danger">
+                                    <f:ajax render="@all" />
+                                </h:commandButton>
+                            </div>
+                        </h:form>
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+        </div>
+
+    </h:body>
+</f:view>
+</html>

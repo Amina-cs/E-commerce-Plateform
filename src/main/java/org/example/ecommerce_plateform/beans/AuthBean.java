@@ -52,6 +52,7 @@ public class AuthBean implements Serializable {
     }
     public String logout() {
         client = null;
+        admin = null;
 
         FacesContext.getCurrentInstance()
                 .getExternalContext()
@@ -178,5 +179,11 @@ public class AuthBean implements Serializable {
         this.authService = authService;
     }
 
+    public admin getAdmin() {
+        return admin;
+    }
 
+    public void setAdmin(admin admin) {
+        this.admin = admin;
+    }
 }

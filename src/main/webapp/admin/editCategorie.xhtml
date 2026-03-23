@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Modifier Catégorie — Admin Maroché</title>
+        <h:outputStylesheet library="css" name="admin.css" />
+    </h:head>
+
+    <h:body>
+
+        <!-- ─── Navbar ─────────────────────────────────────────── -->
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                Maro<span>ché</span>
+                <span class="admin-logo-badge">Admin</span>
+            </div>
+            <div class="admin-nav-right">
+                <h:link outcome="profilAdmin" styleClass="admin-nav-link">Tableau de bord</h:link>
+                <h:link outcome="produits" styleClass="admin-nav-link">Produits</h:link>
+                <h:link outcome="categories" styleClass="admin-nav-link active">Catégories</h:link>
+                <h:form style="display:inline;">
+                    <h:commandLink action="#{authBean.logout}" styleClass="admin-nav-link"
+                                   style="color:#a94442;">
+                        Déconnexion
+                    </h:commandLink>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- ─── Hero ───────────────────────────────────────────── -->
+        <div class="admin-hero">
+            <div>
+                <div class="admin-hero-title">Modifier la Catégorie</div>
+                <div class="admin-hero-sub">#{categorieAdminBean.categorie.nomCategorie}</div>
+            </div>
+            <div class="admin-hero-actions">
+                <h:link outcome="categories" styleClass="btn-outline">
+                    ← Retour aux catégories
+                </h:link>
+            </div>
+        </div>
+
+        <!-- ─── Main Layout ────────────────────────────────────── -->
+        <div class="admin-main">
+
+            <!-- Sidebar -->
+            <div class="admin-sidebar">
+                <div class="sidebar-section-title">Navigation</div>
+                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">👤</span> Profil
+                </h:link>
+                <h:link outcome="produits" styleClass="sidebar-nav-link">
+                    <span class="nav-icon">📦</span> Produits
+                </h:link>
+                <h:link outcome="categories" styleClass="sidebar-nav-link active">
+                    <span class="nav-icon">🗂️</span> Catégories
+                </h:link>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+
+                <div class="section-heading">Informations de la catégorie</div>
+
+                <h:form styleClass="admin-form-card">
+
+                    <div class="form-group">
+                        <label class="form-label">Nom de la catégorie</label>
+                        <h:inputText value="#{categorieAdminBean.categorie.nomCategorie}"
+                                     styleClass="form-input" />
+                    </div>
+
+                    <div style="display:flex; gap:10px; margin-top:8px;">
+                        <h:commandButton value="Mettre à jour"
+                                         action="#{categorieAdminBean.updateCategorie}"
+                                         styleClass="btn-primary" />
+                        <h:link outcome="categories" styleClass="btn-outline">
+                            Annuler
+                        </h:link>
+                    </div>
+
+                </h:form>
+
+            </div>
+        </div>
+
+    </h:body>
+</f:view>
+</html>
