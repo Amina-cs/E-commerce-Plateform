@@ -65,4 +65,14 @@ public class UtilisateurDAO {
                     .uniqueResult();
         }
     }
+
+    public static int countClients() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT COUNT(c) FROM client c", int.class)
+                    .uniqueResult();
+        }
+    }
+
+
 }

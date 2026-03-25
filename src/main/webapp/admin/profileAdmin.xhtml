@@ -13,34 +13,17 @@
 
         <!-- ─── Navbar ─────────────────────────────────────────── -->
         <div class="admin-navbar">
-
             <div class="admin-logo">
-                <h:link outcome="/acceuil">
-                    Maro<span>ché</span>
-                </h:link>
-
+                Maro<span>ché</span>
                 <span class="admin-logo-badge">Admin</span>
             </div>
             <div class="admin-nav-right">
-
                 <h:form style="display:inline;">
-
-                        <h:commandLink action="#{authBean.logout}" styleClass="btn-logout-minimal" style="font-size: 13px;
-                                color: #7A7060;
-                                text-decoration: none;
-                                font-weight: 500;
-                                transition: 0.2s;">
-                            Déconnexion
-                        </h:commandLink>
+                    <h:commandButton value="Déconnexion"
+                                     action="#{authBean.logout}"
+                                     styleClass="admin-nav-link"
+                                     style="color:#a94442; background:none; border:none; cursor:pointer;" />
                 </h:form>
-            </div>
-        </div>
-
-        <!-- ─── Hero ───────────────────────────────────────────── -->
-        <div class="admin-hero">
-            <div>
-                <div class="admin-hero-title">Dashboard Admin</div>
-                <div class="admin-hero-sub">Bienvenue, #{authBean.admin.prenom} #{authBean.admin.nom}</div>
             </div>
         </div>
 
@@ -50,7 +33,7 @@
             <!-- Sidebar -->
             <div class="admin-sidebar">
                 <div class="sidebar-section-title">Navigation</div>
-                <h:link outcome="profilAdmin" styleClass="sidebar-nav-link active">
+                <h:link outcome="profileAdmin" styleClass="sidebar-nav-link active">
                     <span class="nav-icon">👤</span> Profil
                 </h:link>
                 <h:link outcome="produits" styleClass="sidebar-nav-link">
@@ -85,25 +68,89 @@
                     </div>
                 </div>
 
-                <!-- Gestion -->
-                <div class="section-heading" style="margin-top: 2.5rem;">Gestion de la plateforme</div>
+                <br/>
+                <br/>
+
+                <!-- ─── Dashboard ────────────────────────────────────── -->
+                <div class="section-heading">Tableau de bord</div>
+
                 <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">PRODUITS</span>
+                            <div class="stat-icon icon-produit">📦</div>
+                        </div>
+                        <div class="stat-value">#{produitBean.produits.size()}</div>
+                        <div class="stat-desc">articles en catalogue</div>
+                        <div class="stat-progress-bg">
+                            <div class="stat-progress-fill fill-produit" style="width: 70%;"></div>
+                        </div>
+                        <h:link outcome="produits" styleClass="card-overlay-link"/>
+                    </div>
 
-                    <h:link outcome="produits" styleClass="dashboard-card">
-                        <span class="dashboard-card-icon">📦</span>
-                        <h2>Produits</h2>
-                        <p>Ajouter, modifier et supprimer des produits</p>
-                    </h:link>
+                    <!-- CATEGORIES -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>CATÉGORIES</span>
+                            <div class="stat-icon categorie">🗂️</div>
+                        </div>
 
-                    <h:link outcome="categories" styleClass="dashboard-card">
-                        <span class="dashboard-card-icon">🗂️</span>
-                        <h2>Catégories</h2>
-                        <p>Gérer les catégories du catalogue</p>
-                    </h:link>
+                        <div class="stat-value">
+                            #{categorieBean.categories.size()}
+                        </div>
 
+                        <div class="stat-desc">
+                            familles de produits
+                        </div>
+
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill categorie"></div>
+                        </div>
+
+                        <h:link outcome="categories" styleClass="card-link"/>
+                    </div>
+
+                    <!-- CLIENTS -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>CLIENTS</span>
+                            <div class="stat-icon client">👤</div>
+                        </div>
+
+                        <div class="stat-value">
+                            #{adminBean.totalClients}
+                        </div>
+
+                        <div class="stat-desc">
+                            comptes enregistrés
+                        </div>
+
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill client"></div>
+                        </div>
+                    </div>
+
+                    <!-- COMMANDES -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>COMMANDES</span>
+                            <div class="stat-icon commande">🧾</div>
+                        </div>
+
+                        <div class="stat-value">
+                            #{adminBean.totalCommandes}
+                        </div>
+
+                        <div class="stat-desc">
+                            en attente de traitement
+                        </div>
+
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill commande"></div>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
+                </div>
         </div>
 
     </h:body>

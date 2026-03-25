@@ -39,4 +39,12 @@ public class CommandeDAO {
                     .list();
         }
     }
+
+    public static int countCommandes() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT COUNT(c) FROM commande c", int.class)
+                    .uniqueResult();
+        }
+    }
 }

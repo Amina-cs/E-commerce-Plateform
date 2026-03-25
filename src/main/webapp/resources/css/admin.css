@@ -206,48 +206,99 @@ body {
     min-width: 0;
 }
 
-/* ─── Dashboard Stats Cards ─────────────────────────────────── */
-.stats-grid {
+/* --- Dashboard Grid --- */
+.dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 14px;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes comme sur l'image */
+    gap: 24px;
+    margin-top: 20px;
 }
 
+/* --- Stat Card --- */
 .stat-card {
-    background: var(--cream);
-    border: 1px solid var(--beige-border);
-    border-radius: 12px;
-    padding: 18px 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA; /* Bordure très fine */
+    border-radius: 16px;       /* Coins très arrondis */
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); /* Ombre très légère */
+    transition: all 0.3s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(106, 140, 106, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
 }
 
-.stat-card-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    margin-bottom: 8px;
+/* --- Header & Labels --- */
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
 }
 
-.stat-card-value {
-    font-family: var(--font-display);
-    font-size: 34px;
+.stat-label {
+    font-size: 13px;
     font-weight: 600;
-    color: var(--sage-dark);
-    line-height: 1;
+    color: #4A4A4A;
+    letter-spacing: 0.5px;
 }
 
-.stat-card-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
+/* --- Icons avec fond doux --- */
+.stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.icon-produit { background-color: #FEF3E7; color: #D97706; }
+.icon-categorie { background-color: #E6F7F0; color: #059669; }
+.icon-client { background-color: #EBF5FF; color: #2563EB; }
+.icon-commande { background-color: #F3E8FF; color: #7C3AED; }
+
+/* --- Value & Description --- */
+.stat-value {
+    font-size: 48px;  /* Plus grand comme sur l'image */
+    font-weight: 700;
+    color: #1A1A1A;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.stat-desc {
+    font-size: 14px;
+    color: #888888;
+    margin-bottom: 20px;
+}
+
+/* --- Barre de progression fine --- */
+.stat-progress-bg {
+    height: 6px;
+    background: #F0F0F0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.fill-produit { background: #F59E0B; }
+.fill-categorie { background: #10B981; }
+.fill-client { background: #3B82F6; }
+.fill-commande { background: #8B5CF6; }
+
+/* --- Lien invisible sur toute la carte --- */
+.card-overlay-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 /* ─── Dashboard Nav Cards ───────────────────────────────────── */
@@ -533,4 +584,87 @@ body {
     .admin-hero { flex-direction: column; align-items: flex-start; }
     .dashboard-grid { grid-template-columns: 1fr 1fr; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+/* GRID */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* CARD */
+.stat-card {
+    position: relative;
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* HEADER */
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* VALUE */
+.stat-value {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+/* DESC */
+.stat-desc {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+/* ICON */
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* COLORS (garde ton thème) */
+.stat-icon.produit { background: #f5e6d3; }
+.stat-icon.categorie { background: #d8f3e8; }
+.stat-icon.client { background: #dce8f5; }
+.stat-icon.commande { background: #e8e3f7; }
+
+/* BAR */
+.stat-bar {
+    height: 4px;
+    background: #eee;
+    border-radius: 10px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* BAR COLORS */
+.stat-bar-fill.produit { width: 70%; background: #d9902f; }
+.stat-bar-fill.categorie { width: 50%; background: #2f9d7a; }
+.stat-bar-fill.client { width: 20%; background: #3b7ddd; }
+.stat-bar-fill.commande { width: 30%; background: #7b6fd6; }
+
+/* LINK */
+.card-link {
+    position: absolute;
+    inset: 0;
 }
