@@ -13,18 +13,25 @@
 
         <!-- ─── Navbar ─────────────────────────────────────────── -->
         <div class="admin-navbar">
+
             <div class="admin-logo">
-                Maro<span>ché</span>
+                <h:link outcome="/acceuil">
+                    Maro<span>ché</span>
+                </h:link>
+
                 <span class="admin-logo-badge">Admin</span>
             </div>
             <div class="admin-nav-right">
-                <h:link outcome="produits" styleClass="admin-nav-link">Produits</h:link>
-                <h:link outcome="categories" styleClass="admin-nav-link">Catégories</h:link>
+
                 <h:form style="display:inline;">
-                    <h:commandButton value="Déconnexion"
-                                     action="#{authBean.logout}"
-                                     styleClass="admin-nav-link"
-                                     style="color:#a94442; background:none; border:none; cursor:pointer;" />
+
+                        <h:commandLink action="#{authBean.logout}" styleClass="btn-logout-minimal" style="font-size: 13px;
+                                color: #7A7060;
+                                text-decoration: none;
+                                font-weight: 500;
+                                transition: 0.2s;">
+                            Déconnexion
+                        </h:commandLink>
                 </h:form>
             </div>
         </div>

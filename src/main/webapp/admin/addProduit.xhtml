@@ -62,7 +62,7 @@
 
             <!-- Content -->
             <div class="admin-content">
-
+                <h:messages id="messages" globalOnly="false" style="color:red; list-style:none;" />
                 <div class="section-heading">Informations du produit</div>
 
                 <h:form styleClass="admin-form-card">
@@ -99,12 +99,12 @@
 
                     <div class="form-group">
                         <label class="form-label">Catégorie</label>
-                        <h:selectOneMenu value="#{produitAdminBean.produit.categorie}"
+                        <h:selectOneMenu value="#{produitAdminBean.catProduit}"
                                          styleClass="form-select">
                             <f:selectItems value="#{produitAdminBean.categories}"
                                            var="c"
                                            itemLabel="#{c.nomCategorie}"
-                                           itemValue="#{c}" />
+                                           itemValue="#{c.idCategorie}" />
                         </h:selectOneMenu>
                     </div>
 

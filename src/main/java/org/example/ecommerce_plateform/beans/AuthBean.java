@@ -58,7 +58,7 @@ public class AuthBean implements Serializable {
                 .getExternalContext()
                 .invalidateSession();
 
-        return "acceuil.xhtml?faces-redirect=true";
+        return "/acceuil.xhtml?faces-redirect=true";
     }
 
     // SIGN UP

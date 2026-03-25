@@ -21,7 +21,16 @@ public class ProduitAdminBean implements Serializable {
     private produit produit = new produit();
     private List<produit> produits;
     private List<categorie> categories;
+    private int catProduit;
 
+    public int getCatProduit() {
+        return catProduit;
+    }
+    public void setCatProduit(int catProduit) {
+        this.catProduit = catProduit;
+    }
+
+    public ProduitAdminBean() {}
     @PostConstruct
     public void init() {
         produits = produitDAO.findAll();
@@ -29,6 +38,7 @@ public class ProduitAdminBean implements Serializable {
     }
 
     public String ajouterProduit() {
+        produit.setCategorie(categorieDAO.findById(catProduit));
         produitDAO.save(produit);
         return "produits?faces-redirect=true";
     }
